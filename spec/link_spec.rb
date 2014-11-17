@@ -12,8 +12,7 @@ describe Link do
       # in the beginning our database is empty, so there are no links
       expect(Link.count).to eq(0)
       #thi creates it in the database, so it's stored on the disk
-      Link.create(:title => "Makers Academy",
-                  :url => "http://www.makersacademy.com/")
+      Link.create(:title => "Makers Academy",:url => "http://www.makersacademy.com/")
       # We ask the database how many links we have, it should be 1
       expect(Link.count).to eq(1)
       # Lets get the first and only link from the database
