@@ -4,9 +4,9 @@ require './lib/user'
 feature "User signs up" do
 
   scenario "when being logged out" do
-    expect{ sign_up }.to change(User, :count).by (1)
+    lambda{ sign_up }.should change(User, :count).by (1)
     expect(page).to have_content("Welcome, alice@example.com")
-    expect(first.email).to eq("alice@example.com")
+    expect(User.first.email).to eq("alice@example.com")
   end
 
   def sign_up (email = "alice@example.com",
