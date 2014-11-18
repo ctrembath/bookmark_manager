@@ -1,8 +1,17 @@
 require 'sinatra'
 require 'data_mapper'
+require './models/link'
+require './models/tag'
+require './lib/user'
+require './app/helpers/application'
+# require_relative 'data_mapper_setup'
+
 
 env = ENV["RACK_ENV"] ||  "development"
-set :views, Proc.new { File.join(root, '..', 'views') }
+set :views, Proc.new { File.join(root, '..', 'app/views') }
+
+enable :sessions
+set :session_secret, 'super secret'
 
   # we're telling datamapper to use postgres database on localhost. The name will be "bookmark_manager"
   DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{env}")
@@ -40,4 +49,17 @@ set :views, Proc.new { File.join(root, '..', 'views') }
     @links = tag ? tag.links : []
     erb :index
   end
+
+  get '/users/new' do
+    erb :"users/new"
+  end
+
+  post '/users' do
+    User.create(:email => params[:email],
+                :password => params[:password])
+    session[:user_id] = user.id
+    redirect to('/')
+  end
+
+
 
