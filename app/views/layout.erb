@@ -6,7 +6,12 @@
 
     <% if current_user %>
       Welcome, <%= current_user.email %>
-      <% end %>
+    <% end %>
+
+    <% if flash[:notice] %>
+      <div id="notice"><%= flash[:notice] %></div>
+    <% end %>
+    
     <%= yield %>
     <footer>
       <!-- Made at Makers Academy -->
