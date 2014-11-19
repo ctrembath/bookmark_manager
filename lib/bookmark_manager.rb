@@ -2,30 +2,21 @@ require 'sinatra'
 require 'data_mapper'
 require 'rack-flash'
 require './app/helpers/application'
-
-enable :sessions
-set :session_secret, 'super secret'
-
-env = ENV["RACK_ENV"] ||  "development"
-set :views, Proc.new { File.join(root, '..', 'app/views') }
-
-
-
-  # we're telling datamapper to use postgres database on localhost. The name will be "bookmark_manager"
-  DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{env}")
-
 require './models/link'
 require './models/tag'
 require './models/user'
-  # After declaring your models you should finalise them
-  DataMapper.finalize
+require_relative '../app/data_mapper_setup'
 
-  # However, the database tables don't exist yet. Let's tell datamapper to create them
-  DataMapper.auto_migrate!
-  
-  # start the server if ruby file executed directly
 
-  use Rack::Flash
+enable :sessions
+set :session_secret, 'super secret'
+use Rack::Flash
+# env = ENV["RACK_ENV"] ||  "development"
+set :views, Proc.new { File.join(root, '..', 'app/views') }
+
+  # # However, the database tables don't exist yet. Let's tell datamapper to create them
+  # DataMapper.auto_migrate!
+
  
 
   get '/' do
