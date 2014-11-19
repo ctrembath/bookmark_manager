@@ -64,7 +64,7 @@ set :views, Proc.new { File.join(root, '..', 'app/views') }
 
   post '/sessions' do
     email, password = params[:email], params[:password]
-    user = User.authenticate(email.password)
+    user = User.authenticate(email, password)
     if user 
       session[:user_id] = user.id
       redirect to('/')
