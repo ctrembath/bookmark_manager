@@ -8,9 +8,15 @@
       Welcome, <%= current_user.email %>
     <% end %>
 
-    <% if flash[:notice] %>
-      <div id="notice"><%= flash[:notice] %></div>
-    <% end %>
+    <% if flash.now[:errors] && !flash.now[:errors].empty? %>
+    Sorry, there were the following problems with the form
+      <ul id='errors'>
+        <% flash.now[:errors].each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+     <% end %>
+
     
     <%= yield %>
     <footer>
