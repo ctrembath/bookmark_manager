@@ -6,7 +6,17 @@
 
     <% if current_user %>
       Welcome, <%= current_user.email %>
+      <form action="/sessions" method="post">
+        <input type="hidden" name:"_method" value="delete">
+        <input type="submit" value="Sign out">
+      </form>
     <% end %>
+
+    <% if flash.now[:notice] %>
+      <div id="notice">
+        <%= flash.now[:notice] %>
+    </div>
+      <% end %>
 
     <% if flash.now[:errors] && !flash.now[:errors].empty? %>
     Sorry, there were the following problems with the form
