@@ -7,6 +7,10 @@ require './models/tag'
 require './models/user'
 require_relative '../app/data_mapper_setup'
 
+env = ENV["RACK_ENV"] || "development"
+
+DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{env}")
+
 enable :sessions
 set :session_secret, 'super secret'
 use Rack::Flash
@@ -69,11 +73,22 @@ post '/sessions' do
   end
 end
 
-delete '/sessions' do
-  session.clear
-  flash[:notice] = ["Good bye!"]
-  redirect '/'
-end
+  delete '/sessions' do
+    session.clear
+    flash[:notice] = ["Good bye!"]
+    redirect '/'
+  end
+
+  get '/users/reset_password' do
+    erb :"users/reset_password"
+  end
+
+  post '/users/forgot_password' do
+   user= User.first(email: params[:email])
+   user.password_token = (1..64).map{('A'..'Z').to_a.sample}.join
+   user.save
+   'check your mail'
+  end
 
 
 

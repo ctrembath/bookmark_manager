@@ -10,6 +10,7 @@ class User
   property :id, Serial
   property :email, String, :unique => true, :message => "This email is already taken"
   property :password_digest, Text
+  property :password_token, Text
 
 
   validates_confirmation_of :password
