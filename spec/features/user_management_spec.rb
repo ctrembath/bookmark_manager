@@ -6,7 +6,6 @@ include SessionHelpers
 
 feature "User signs up" do
 
-
   scenario "when being logged out" do
     expect{ sign_up }.to change(User, :count).by (1)
     expect(page).to have_content("Welcome, alice@example.com")
@@ -58,11 +57,12 @@ feature "User signs in" do
     end
 end
 
-  feature 'User signs out' do
-    before(:each) do
-      User.create(:email => "test@test.com",
-                  :password => 'test',
-                  :password_confirmation => 'test')
+feature 'User signs out' do
+  
+  before(:each) do
+    User.create(:email => "test@test.com",
+                :password => 'test',
+                :password_confirmation => 'test')
   end
 
   scenario "while being signed in" do
@@ -71,7 +71,7 @@ end
     expect(page).to have_content("Good bye!")
     expect(page).not_to have_content("Welcome, test@test.com")
   end
-
+  
 end
 
 
