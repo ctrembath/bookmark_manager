@@ -96,12 +96,11 @@ end
     erb :'users/new_password'
   end
 
-  post "/users/reset_password" do
+  post "/users/new_password" do
   
     user = User.first(password_token: params[:password_token])
-    user.update(password: params[:password], password_confirmation: params[:password_confirmation])
+    user.update(password: params[:password], password_confirmation: params[:password_confirmation], password_token: nil)
     'password updated'    
-
   end
 
 
