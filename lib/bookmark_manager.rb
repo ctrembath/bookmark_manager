@@ -87,7 +87,17 @@ end
    user= User.first(email: params[:email])
    user.password_token = (1..64).map{('A'..'Z').to_a.sample}.join
    user.save
-   'check your mail'
+   'check your email'
+  end
+
+  get'/users/reset_password/:token' do
+    @token = params[:token]
+    user = User.first(password_token: @token)    
+    erb :'users/new_password'
+  end
+
+  post "/users/reset_password" do
+    token 
   end
 
 
