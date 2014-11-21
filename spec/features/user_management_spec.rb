@@ -1,5 +1,4 @@
 require 'spec_helper'
-require './models/user'
 require 'features/helpers/session'
 
 include SessionHelpers

@@ -2,10 +2,12 @@ require 'sinatra'
 require 'data_mapper'
 require 'rack-flash'
 require './app/helpers/application'
-require './models/link'
-require './models/tag'
-require './models/user'
-require_relative '../app/data_mapper_setup'
+
+
+require_relative 'models/link'
+require_relative 'models/tag'
+require_relative 'models/user'
+require_relative 'data_mapper_setup'
 
 env = ENV["RACK_ENV"] || "development"
 
