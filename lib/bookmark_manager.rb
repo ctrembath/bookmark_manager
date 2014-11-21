@@ -97,7 +97,11 @@ end
   end
 
   post "/users/reset_password" do
-    token 
+  
+    user = User.first(password_token: params[:password_token])
+    user.update(password: params[:password], password_confirmation: params[:password_confirmation])
+    'password updated'    
+
   end
 
 
