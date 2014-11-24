@@ -1,4 +1,5 @@
 require 'spec_helper'
+require '../models/user'
 require 'features/helpers/session'
 
 include SessionHelpers
@@ -31,7 +32,9 @@ feature "User signs in" do
     before(:each) do
       User.create(:email => "test@test.com",
                   :password => "test",
-                  :password_confirmation => "test")
+                  :password_confirmation => "test",
+                  :password_token => "test",
+                  :password_token_timestamp => "test")
     end
 
     scenario "with correct credentials" do
@@ -48,12 +51,6 @@ feature "User signs in" do
       expect(page).not_to have_content("Welcome, test@test.com")
     end
 
-    def sign_in(email, password)
-      visit '/sessions/new'
-      fill_in 'email', :with => email
-      fill_in 'password', :with => password
-      click_button 'Sign in'
-    end
 end
 
 feature 'User signs out' do
@@ -61,7 +58,9 @@ feature 'User signs out' do
   before(:each) do
     User.create(:email => "test@test.com",
                 :password => 'test',
-                :password_confirmation => 'test')
+                :password_confirmation => 'test',
+                :password_token => "test",
+                :password_token_timestamp => "test")
   end
 
   scenario "while being signed in" do
