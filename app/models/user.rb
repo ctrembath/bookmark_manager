@@ -20,12 +20,12 @@ class User
   MAILGUN_API = ENV['MAILGUN_API']
   BOOKMARK_URL = ENV['BOOKMARK_URL']
 
-  def sign_in(email, password)
-    visit '/sessions/new'
-    fill_in 'email', :with => email
-    fill_in 'password', :with => password
-    click_button 'Sign in'
-  end
+  # def sign_in(email,password)
+  #   visit '/sessions/new'
+  #   fill_in 'email', :with => email
+  #   fill_in 'password', :with => password
+  #   click_button 'Sign in'
+  # end
 
   def password=(password)
     @password = password
