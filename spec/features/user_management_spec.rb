@@ -30,41 +30,31 @@ end
 
 feature "User signs in" do
 
-    before(:each) do
-      # User.create(:email => "test@test.com",
-      #             :password => 'test',
-      #             :password_confirmation => 'test',
-      #             :password_token => 'test',
-      #             :password_token_timestamp => 'test')
-      sign_up("test@test.com", "test", "test")
-      click_on "Sign out"
-    end
+  before(:each) do
+    sign_up("test@test.com", "test", "test")
+    click_on "Sign out"
+  end
 
-    scenario "with correct credentials" do
-      visit '/'
-      expect(page).not_to have_content("Welcome, test@test.com")
-      sign_in('test@test.com','test')
-      save_and_open_page
-      expect(page).to have_content("Welcome, test@test.com")
-    end
+  scenario "with correct credentials" do
+    visit '/'
+    expect(page).not_to have_content("Welcome, test@test.com")
+    sign_in('test@test.com','test')
+    save_and_open_page
+    expect(page).to have_content("Welcome, test@test.com")
+  end
 
-    scenario "with incorrect credentials" do
-      visit '/'
-      expect(page).not_to have_content("Welcome, test@test.com")
-      sign_in('test@test.com', 'wrong')
-      expect(page).not_to have_content("Welcome, test@test.com")
-    end
+  scenario "with incorrect credentials" do
+    visit '/'
+    expect(page).not_to have_content("Welcome, test@test.com")
+    sign_in('test@test.com', 'wrong')
+    expect(page).not_to have_content("Welcome, test@test.com")
+  end
 
 end
 
 feature 'User signs out' do
   
   before(:each) do
-    # User.create(:email => "test@test.com",
-    #             :password => 'test',
-    #             :password_confirmation => 'test',
-    #             :password_token => "test",
-    #             :password_token_timestamp => "test")
     sign_up("test@test.com", "test", "test")
     click_on "Sign out"
   end
@@ -78,15 +68,12 @@ feature 'User signs out' do
   
 end
 
-
-
   def sign_in(email, password)
-    visit '/sessions/new'
-    fill_in 'email', :with => email
-    fill_in 'password', :with => password
-    click_button 'Sign in'
-  end
-
+  visit '/sessions/new'
+  fill_in 'email', :with => email
+  fill_in 'password', :with => password
+  click_button 'Sign in'
+end
 
 
 
