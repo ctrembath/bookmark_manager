@@ -2,7 +2,7 @@ require 'sinatra'
 require 'data_mapper'
 require 'rack-flash'
 require './app/helpers/application'
-
+require 'rest_client'
 
 require_relative 'models/link'
 require_relative 'models/tag'
@@ -86,11 +86,25 @@ end
   end
 
   post '/users/forgot_password' do
-   user= User.first(email: params[:email])
-   user.password_token = (1..64).map{('A'..'Z').to_a.sample}.join
-   user.password_token_timestamp = Time.now
-   user.save
-   'check your email'
+    user = User.first(email: params[:email])
+      if user
+        token = password_token
+        user.update(password_token: token, password_token_timestamp: password_token_timestamp)
+        send_message(email, token)
+        flash[:notice] = "Reset instructions sent to #{email}"
+        redirect '/'
+      else
+        flash[:notice] = "Please check your email address"
+        redirect '/'
+    end
+  end
+
+  def password_token 
+    (1..64).map{('A'..'Z').to_a.sample}.join
+  end
+
+  def password_token_timestamp
+    Time.now
   end
 
   get'/users/reset_password/:token' do
@@ -100,11 +114,12 @@ end
   end
 
   post "/users/new_password" do
-  
     user = User.first(password_token: params[:password_token] )
     user.update(password: params[:password], password_confirmation: params[:password_confirmation], password_token: nil)
     'password updated'    
   end
+
+
 
 
 
