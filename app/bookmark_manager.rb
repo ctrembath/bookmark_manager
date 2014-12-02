@@ -3,6 +3,7 @@ require 'data_mapper'
 require 'rack-flash'
 require './app/helpers/application'
 require 'rest_client'
+require 'mailgun'
 
 require_relative 'models/link'
 require_relative 'models/tag'
@@ -90,7 +91,7 @@ end
       if user
         token = password_token
         user.update(password_token: token, password_token_timestamp: password_token_timestamp)
-        send_message(email, token)
+        user.send_message(user.email, token)
         flash[:notice] = "Reset instructions sent to #{email}"
         redirect '/'
       else

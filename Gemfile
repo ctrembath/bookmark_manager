@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
   gem 'sinatra'
+  gem 'mailgun-ruby'
 
 group :development, :test do
   gem 'capybara'
@@ -15,5 +16,6 @@ group :development, :test do
   gem 'bcrypt-ruby'
   gem 'rack-flash3'
   gem 'rest-client'
+
 
 end
