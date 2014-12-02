@@ -36,6 +36,15 @@ class User
     end
   end
 
+  def password_token 
+    (1..64).map{('A'..'Z').to_a.sample}.join
+  end
+
+  def password_token_timestamp
+    Time.now
+  end
+
+
   # def send_message(email, token)
   #   RestClient.post "https://api:key-1a15cf6167de1edd52ebcecc5ae6fce0",
   #   "@api.mailgun.net/v2/v2/app31831016.mailgun.org",

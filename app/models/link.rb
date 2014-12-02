@@ -1,10 +1,6 @@
-# require 'data_mapper'
-# This class corresponds to a table in the database
-# We can use it to manipulate the data
 require_relative 'tag'
 class Link
 
-    # this makes the instances of this class datamapper resources
     include DataMapper::Resource
 
     has n, :tags, :through => Resource
