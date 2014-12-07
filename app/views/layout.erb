@@ -4,6 +4,11 @@
   </header>
   <body>
 
+  <%= partial :header %>
+  <%= partial :flash %>
+  <%= yield %>
+  </body>
+
     <% if current_user %>
       Welcome, <%= current_user.email %>
       <form method="post" action="/sessions">
